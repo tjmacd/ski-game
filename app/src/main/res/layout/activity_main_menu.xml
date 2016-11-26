@@ -15,7 +15,8 @@
         android:text="@string/play_game"
         android:id="@+id/button"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="startGame" />
 
     <Button
         android:layout_width="match_parent"
