@@ -14,13 +14,14 @@ public class GameModel {
     private Sprite obstacles[][] = new Sprite[2][4];
     int screenSwap;
     float scroll;
+    float spriteWidth;
 
     public GameModel(float boardWidth, float boardHeight) {
         this.boardWidth = boardWidth;
         this.boardHeight = boardHeight;
 
-        player = new Sprite();
-        player.setLocation(new PointF(boardWidth/2, PLAYER_Y));
+        spriteWidth = boardWidth / 5;
+        player = new Sprite(new PointF(boardWidth/2, PLAYER_Y), spriteWidth, spriteWidth);
 
         screenSwap = 0;
         scroll = boardHeight;
@@ -71,8 +72,7 @@ public class GameModel {
 
     private void generateObstacles(){
         for(int i=0; i<obstacles[screenSwap].length; i++){
-            obstacles[screenSwap][i] = new Sprite();
-            obstacles[screenSwap][i].setLocation(randomLocation());
+            obstacles[screenSwap][i] = new Sprite(randomLocation(), spriteWidth, spriteWidth);
         }
     }
 
@@ -95,6 +95,17 @@ public class GameModel {
             swapScreens();
             generateObstacles();
         }
+    }
+
+    public boolean checkCollision(){
+        for(Sprite[] screen : obstacles){
+            for(Sprite obstacle : screen){
+                if (obstacle != null && player.intersects(obstacle)){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private PointF randomLocation() {

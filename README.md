@@ -2,7 +2,7 @@
 
 ## TODO:
 - Gameplay:
-	- collision
+	- collision **(done)**
 	- Jumping
 	- scoring
 	- Actual sprites

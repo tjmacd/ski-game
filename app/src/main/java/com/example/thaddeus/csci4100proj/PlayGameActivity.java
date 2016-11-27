@@ -19,6 +19,7 @@ public class PlayGameActivity extends AppCompatActivity
     public String appName;
     private GameModel model;
     private CanvasView view;
+    private boolean paused = true;
 
 
     @Override
@@ -36,6 +37,7 @@ public class PlayGameActivity extends AppCompatActivity
         view.setPlayerPosition(model.getPosition());
         view.setOnTouchListener(this);
 
+        update();
 
         SensorManager manager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         if(manager.getSensorList(Sensor.TYPE_ACCELEROMETER).size() == 0){
@@ -48,7 +50,8 @@ public class PlayGameActivity extends AppCompatActivity
         }
     }
 
-    private void updateView(){
+    private void update(){
+
         view.setPlayerPosition(model.getPosition());
         view.clearObstacles();
         for(PointF pos : model.getObstaclePositions()){
@@ -56,18 +59,23 @@ public class PlayGameActivity extends AppCompatActivity
         }
 
         view.redraw();
+        if(model.checkCollision()){
+            paused = true;
+        }
         model.moveObstacles();
     }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        float x = event.values[0];
-        if(x >= TILT_THRESHOLD) {
-            model.moveLeft();
-        } else if (x <= -TILT_THRESHOLD){
-            model.moveRight();
+        if(!paused) {
+            float x = event.values[0];
+            if (x >= TILT_THRESHOLD) {
+                model.moveLeft();
+            } else if (x <= -TILT_THRESHOLD) {
+                model.moveRight();
+            }
+            update();
         }
-        updateView();
     }
 
     @Override
@@ -78,6 +86,7 @@ public class PlayGameActivity extends AppCompatActivity
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         Log.d(appName, "TOUCH!");
+        paused = false;
         return false;
     }
 }
