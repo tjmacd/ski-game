@@ -26,12 +26,13 @@ public class PlayGameActivity extends AppCompatActivity
         setContentView(R.layout.activity_play_game);
 
         appName = getResources().getString(R.string.app_name);
-        float worldWidth = 800;
-        float worldHeight = 1280;
+        float worldWidth = CanvasView.WORLD_WIDTH;
+        float worldHeight = CanvasView.WORLD_HEIGHT;
 
         model = new GameModel(worldWidth, worldHeight);
 
         view = (CanvasView)findViewById(R.id.gameView);
+        view.setPlayerPosition(model.getPosition());
         view.setOnTouchListener(this);
 
 
@@ -49,12 +50,13 @@ public class PlayGameActivity extends AppCompatActivity
     @Override
     public void onSensorChanged(SensorEvent event) {
         float x = event.values[0];
-        Log.d(appName, "Tilt: " + x);
         if(x >= TILT_THRESHOLD) {
-
+            model.moveLeft();
         } else if (x <= -TILT_THRESHOLD){
-
+            model.moveRight();
         }
+        view.setPlayerPosition(model.getPosition());
+        view.redraw();
     }
 
     @Override
