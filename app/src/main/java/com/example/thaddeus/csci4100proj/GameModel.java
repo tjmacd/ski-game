@@ -1,11 +1,13 @@
 package com.example.thaddeus.csci4100proj;
 
 import android.graphics.PointF;
+import android.util.Log;
 
 public class GameModel {
     public static final float SPEED = 10;
     public static final float DRIFT_SPEED = 10;
     public static final float PLAYER_Y = 200;
+    public static final int STARTING_LIVES = 5;
 
     private float boardWidth;
     private float boardHeight;
@@ -16,6 +18,10 @@ public class GameModel {
     private float scroll;
     private float spriteWidth;
     private float spriteHeight;
+
+    private int lives = STARTING_LIVES;
+    private boolean gameOver = false;
+    private int score = 0;
 
     public GameModel(float boardWidth, float boardHeight) {
         this.boardWidth = boardWidth;
@@ -130,5 +136,30 @@ public class GameModel {
 
     public void setSpriteHeight(float spriteHeight) {
         this.spriteHeight = spriteHeight;
+    }
+
+    public int getLives(){
+        return lives;
+    }
+
+    public void decrLives() {
+        lives--;
+    }
+
+    public void setGameOver(boolean gameOver) {
+        this.gameOver = gameOver;
+    }
+
+    public boolean isGameOver() {
+        return gameOver;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void incrScore(int amount) {
+        score += amount;
+        Log.d("Score", ""+score);
     }
 }
