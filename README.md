@@ -12,3 +12,5 @@
 	- More obstacles or adjust size
 - High scores
 - Instructions
+- music and sound
+- layout theme

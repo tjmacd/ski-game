@@ -18,12 +18,16 @@ public class PlayGameActivity extends AppCompatActivity
     public static final float TILT_THRESHOLD = 1.5f;
     public static final int JUMP_TIME = 30;
     public static final int CRASH_TIME = 50;
+    public static final int STARTING_LIVES = 5;
+    public static final int JUMP_COOLDOWN_TIME = 50;
     public String appName;
     private GameModel model;
     private CanvasView view;
     private boolean paused = false;
     private int jump = 0;
+    private int jumpCooldown = 0;
     private int crash = 0;
+    private int lives = STARTING_LIVES;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +74,8 @@ public class PlayGameActivity extends AppCompatActivity
             if (model.checkCollision()) {
                 paused = true;
                 crash = CRASH_TIME;
+                lives--;
+                Log.d("Lives", ""+lives);
             }
         } else {
             jump--;
@@ -90,6 +96,10 @@ public class PlayGameActivity extends AppCompatActivity
         } else if (crash != 0){
             crash--;
         }
+        if(jumpCooldown != 0){
+            Log.d("Jump Cooldown", ""+jumpCooldown);
+            jumpCooldown--;
+        }
     }
 
     @Override
@@ -102,8 +112,9 @@ public class PlayGameActivity extends AppCompatActivity
         Log.d(appName, "TOUCH!");
         if(crash == 0) {
             paused = false;
-            if (jump == 0) {
-                jump = 30;
+            if (jumpCooldown == 0) {
+                jump = JUMP_TIME;
+                jumpCooldown = JUMP_COOLDOWN_TIME;
                 view.setPlayerState(CanvasView.PlayerState.JUMP);
             }
         }
