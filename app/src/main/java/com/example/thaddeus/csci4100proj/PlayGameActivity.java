@@ -1,6 +1,7 @@
 package com.example.thaddeus.csci4100proj;
 
 import android.content.Context;
+import android.graphics.PointF;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -47,6 +48,17 @@ public class PlayGameActivity extends AppCompatActivity
         }
     }
 
+    private void updateView(){
+        view.setPlayerPosition(model.getPosition());
+        view.clearObstacles();
+        for(PointF pos : model.getObstaclePositions()){
+            view.addObstacle(pos);
+        }
+
+        view.redraw();
+        model.moveObstacles();
+    }
+
     @Override
     public void onSensorChanged(SensorEvent event) {
         float x = event.values[0];
@@ -55,8 +67,7 @@ public class PlayGameActivity extends AppCompatActivity
         } else if (x <= -TILT_THRESHOLD){
             model.moveRight();
         }
-        view.setPlayerPosition(model.getPosition());
-        view.redraw();
+        updateView();
     }
 
     @Override

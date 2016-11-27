@@ -10,13 +10,17 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
+import java.util.ArrayList;
+
 public class CanvasView extends View {
     public static final int SPRITE_WIDTH = 275;
     public static final int SPRITE_HEIGHT = 275;
     public static final int WORLD_WIDTH = 800;
     public static final int WORLD_HEIGHT = 1280;
     private RectF playerPos;
+    private ArrayList<RectF> obstaclePositions;
     private Bitmap playerSprite;
+    private Bitmap obstacleSprite;
 
     public CanvasView(Context ctx){
         super(ctx);
@@ -30,6 +34,8 @@ public class CanvasView extends View {
 
     private void init() {
         playerSprite = BitmapFactory.decodeResource(getResources(), R.drawable.player);
+        obstacleSprite = BitmapFactory.decodeResource(getResources(), R.drawable.hazard);
+        obstaclePositions = new ArrayList<>();
     }
 
     private PointF convertToScreenCoords(PointF point){
@@ -47,6 +53,19 @@ public class CanvasView extends View {
                 screenPos.x+halfWidth, screenPos.y+halfHeight);
     }
 
+    public void clearObstacles() {
+        obstaclePositions.clear();
+    }
+
+    public void addObstacle(PointF position) {
+        PointF screenPos = convertToScreenCoords(position);
+        int halfWidth = SPRITE_WIDTH / 2;
+        int halfHeight = SPRITE_HEIGHT / 2;
+        RectF newPosition = new RectF(screenPos.x-halfWidth, screenPos.y-halfHeight,
+                screenPos.x+halfWidth, screenPos.y+halfHeight);
+        obstaclePositions.add(newPosition);
+    }
+
     public RectF getPlayerPosition() {
         return playerPos;
     }
@@ -60,5 +79,9 @@ public class CanvasView extends View {
         canvas.drawRGB(255,255,255);
 
         canvas.drawBitmap(playerSprite, null, playerPos, null);
+
+        for(RectF obstacle : obstaclePositions){
+            canvas.drawBitmap(obstacleSprite, null, obstacle, null);
+        }
     }
 }
