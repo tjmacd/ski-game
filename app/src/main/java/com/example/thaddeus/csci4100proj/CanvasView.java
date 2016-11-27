@@ -32,8 +32,6 @@ public class CanvasView extends View {
     protected void onDraw(Canvas canvas) {
         canvas.drawRGB(255,255,255);
 
-        RectF position = new RectF(200, 200, 400, 400);
-
         canvas.drawBitmap(playerSprite, 200, 200, null);
     }
 }
