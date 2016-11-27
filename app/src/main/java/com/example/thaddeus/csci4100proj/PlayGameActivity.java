@@ -19,7 +19,7 @@ public class PlayGameActivity extends AppCompatActivity
     public String appName;
     private GameModel model;
     private CanvasView view;
-    private boolean paused = true;
+    private boolean paused = false;
 
 
     @Override
@@ -34,7 +34,9 @@ public class PlayGameActivity extends AppCompatActivity
         model = new GameModel(worldWidth, worldHeight);
 
         view = (CanvasView)findViewById(R.id.gameView);
+
         view.setPlayerPosition(model.getPosition());
+
         view.setOnTouchListener(this);
 
         update();
@@ -51,7 +53,8 @@ public class PlayGameActivity extends AppCompatActivity
     }
 
     private void update(){
-
+        view.setPlayerDimensions(model.getSpriteWidth(), model.getSpriteHeight());
+        view.setObstacleDimensions(model.getSpriteWidth(), model.getSpriteHeight());
         view.setPlayerPosition(model.getPosition());
         view.clearObstacles();
         for(PointF pos : model.getObstaclePositions()){

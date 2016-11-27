@@ -12,16 +12,18 @@ public class GameModel {
 
     private Sprite player;
     private Sprite obstacles[][] = new Sprite[2][4];
-    int screenSwap;
-    float scroll;
-    float spriteWidth;
+    private int screenSwap;
+    private float scroll;
+    private float spriteWidth;
+    private float spriteHeight;
 
     public GameModel(float boardWidth, float boardHeight) {
         this.boardWidth = boardWidth;
         this.boardHeight = boardHeight;
 
-        spriteWidth = boardWidth / 5;
-        player = new Sprite(new PointF(boardWidth/2, PLAYER_Y), spriteWidth, spriteWidth);
+        setSpriteWidth(boardWidth / 5);
+        setSpriteHeight(getSpriteWidth());
+        player = new Sprite(new PointF(boardWidth/2, PLAYER_Y), getSpriteWidth(), getSpriteWidth());
 
         screenSwap = 0;
         scroll = boardHeight;
@@ -33,7 +35,7 @@ public class GameModel {
     public void moveLeft() {
         PointF location = player.getLocation();
         location.x -= DRIFT_SPEED;
-        int leftBorder = CanvasView.SPRITE_WIDTH/2;
+        int leftBorder = (int)player.getWidth()/2;
         if(location.x < leftBorder){
             location.x = leftBorder;
         }
@@ -43,7 +45,7 @@ public class GameModel {
     public void moveRight() {
         PointF location = player.getLocation();
         location.x += DRIFT_SPEED;
-        int rightBorder = (int)boardWidth - CanvasView.SPRITE_WIDTH/2 - 1;
+        int rightBorder = (int)(boardWidth - player.getWidth()/2 - 1);
         if(location.x > rightBorder){
             location.x = rightBorder;
         }
@@ -72,7 +74,7 @@ public class GameModel {
 
     private void generateObstacles(){
         for(int i=0; i<obstacles[screenSwap].length; i++){
-            obstacles[screenSwap][i] = new Sprite(randomLocation(), spriteWidth, spriteWidth);
+            obstacles[screenSwap][i] = new Sprite(randomLocation(), getSpriteWidth(), getSpriteWidth());
         }
     }
 
@@ -112,5 +114,21 @@ public class GameModel {
         float y = (int)(Math.random()*boardHeight) + boardHeight;
         float x = (int)(Math.random()*boardWidth);
         return new PointF(x, y);
+    }
+
+    public float getSpriteWidth() {
+        return spriteWidth;
+    }
+
+    public void setSpriteWidth(float spriteWidth) {
+        this.spriteWidth = spriteWidth;
+    }
+
+    public float getSpriteHeight() {
+        return spriteHeight;
+    }
+
+    public void setSpriteHeight(float spriteHeight) {
+        this.spriteHeight = spriteHeight;
     }
 }

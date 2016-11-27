@@ -13,14 +13,16 @@ import android.view.View;
 import java.util.ArrayList;
 
 public class CanvasView extends View {
-    public static final int SPRITE_WIDTH = 275;
-    public static final int SPRITE_HEIGHT = 275;
     public static final int WORLD_WIDTH = 800;
     public static final int WORLD_HEIGHT = 1280;
     private RectF playerPos;
     private ArrayList<RectF> obstaclePositions;
     private Bitmap playerSprite;
     private Bitmap obstacleSprite;
+    int playerWidth;
+    int playerHeight;
+    int obstacleWidth;
+    int obstacleHeight;
 
     public CanvasView(Context ctx){
         super(ctx);
@@ -45,10 +47,20 @@ public class CanvasView extends View {
         return screenPoint;
     }
 
+    public void setPlayerDimensions(float width, float height){
+        playerWidth = (int)(width * getWidth() / WORLD_WIDTH);
+        playerHeight = (int)(height*getHeight()/WORLD_HEIGHT);
+    }
+
+    public void setObstacleDimensions(float width, float height){
+        obstacleWidth = (int)(width * getWidth() / WORLD_WIDTH);
+        obstacleHeight = (int)(height*getHeight()/WORLD_HEIGHT);
+    }
+
     public void setPlayerPosition(PointF position) {
         PointF screenPos = convertToScreenCoords(position);
-        int halfWidth = SPRITE_WIDTH / 2;
-        int halfHeight = SPRITE_HEIGHT / 2;
+        int halfWidth = playerWidth / 2;
+        int halfHeight = playerHeight / 2;
         playerPos = new RectF(screenPos.x-halfWidth, screenPos.y-halfHeight,
                 screenPos.x+halfWidth, screenPos.y+halfHeight);
     }
@@ -59,8 +71,8 @@ public class CanvasView extends View {
 
     public void addObstacle(PointF position) {
         PointF screenPos = convertToScreenCoords(position);
-        int halfWidth = SPRITE_WIDTH / 2;
-        int halfHeight = SPRITE_HEIGHT / 2;
+        int halfWidth = obstacleWidth / 2;
+        int halfHeight = obstacleHeight / 2;
         RectF newPosition = new RectF(screenPos.x-halfWidth, screenPos.y-halfHeight,
                 screenPos.x+halfWidth, screenPos.y+halfHeight);
         obstaclePositions.add(newPosition);
