@@ -13,16 +13,21 @@ import android.view.View;
 import java.util.ArrayList;
 
 public class CanvasView extends View {
+
+
+    public enum PlayerState {STRAIGHT, JUMP}
     public static final int WORLD_WIDTH = 800;
     public static final int WORLD_HEIGHT = 1280;
     private RectF playerPos;
     private ArrayList<RectF> obstaclePositions;
     private Bitmap playerSprite;
+    private Bitmap playerJumpSprite;
     private Bitmap obstacleSprite;
-    int playerWidth;
-    int playerHeight;
-    int obstacleWidth;
-    int obstacleHeight;
+    private int playerWidth;
+    private int playerHeight;
+    private int obstacleWidth;
+    private int obstacleHeight;
+    private PlayerState playerState = PlayerState.STRAIGHT;
 
     public CanvasView(Context ctx){
         super(ctx);
@@ -36,6 +41,7 @@ public class CanvasView extends View {
 
     private void init() {
         playerSprite = BitmapFactory.decodeResource(getResources(), R.drawable.player);
+        playerJumpSprite = BitmapFactory.decodeResource(getResources(), R.drawable.jump);
         obstacleSprite = BitmapFactory.decodeResource(getResources(), R.drawable.hazard);
         obstaclePositions = new ArrayList<>();
     }
@@ -82,6 +88,14 @@ public class CanvasView extends View {
         return playerPos;
     }
 
+    public PlayerState getPlayerState() {
+        return playerState;
+    }
+
+    public void setPlayerState(PlayerState playerState) {
+        this.playerState = playerState;
+    }
+
     public void redraw() {
         invalidate();
     }
@@ -90,7 +104,14 @@ public class CanvasView extends View {
     protected void onDraw(Canvas canvas) {
         canvas.drawRGB(255,255,255);
 
-        canvas.drawBitmap(playerSprite, null, playerPos, null);
+        switch (playerState){
+            case STRAIGHT:
+                canvas.drawBitmap(playerSprite, null, playerPos, null);
+                break;
+            case JUMP:
+                canvas.drawBitmap(playerJumpSprite, null, playerPos, null);
+                break;
+        }
 
         for(RectF obstacle : obstaclePositions){
             canvas.drawBitmap(obstacleSprite, null, obstacle, null);

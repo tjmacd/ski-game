@@ -16,11 +16,14 @@ import android.view.View;
 public class PlayGameActivity extends AppCompatActivity
         implements SensorEventListener, View.OnTouchListener {
     public static final float TILT_THRESHOLD = 1.5f;
+    public static final int JUMP_TIME = 30;
+    public static final int CRASH_TIME = 50;
     public String appName;
     private GameModel model;
     private CanvasView view;
     private boolean paused = false;
-
+    private int jump = 0;
+    private int crash = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +65,14 @@ public class PlayGameActivity extends AppCompatActivity
         }
 
         view.redraw();
-        if(model.checkCollision()){
-            paused = true;
+        if(jump == 0) {
+            view.setPlayerState(CanvasView.PlayerState.STRAIGHT);
+            if (model.checkCollision()) {
+                paused = true;
+                crash = CRASH_TIME;
+            }
+        } else {
+            jump--;
         }
         model.moveObstacles();
     }
@@ -78,6 +87,8 @@ public class PlayGameActivity extends AppCompatActivity
                 model.moveRight();
             }
             update();
+        } else if (crash != 0){
+            crash--;
         }
     }
 
@@ -89,7 +100,13 @@ public class PlayGameActivity extends AppCompatActivity
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         Log.d(appName, "TOUCH!");
-        paused = false;
-        return false;
+        if(crash == 0) {
+            paused = false;
+            if (jump == 0) {
+                jump = 30;
+                view.setPlayerState(CanvasView.PlayerState.JUMP);
+            }
+        }
+        return true;
     }
 }
