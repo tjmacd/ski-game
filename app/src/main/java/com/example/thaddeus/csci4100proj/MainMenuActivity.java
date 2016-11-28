@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 public class MainMenuActivity extends AppCompatActivity {
 
@@ -15,7 +16,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
     public void startGame(View view) {
         Intent intent = new Intent(this, PlayGameActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, 1);
     }
 
     public void highscores(View view){
@@ -34,5 +35,16 @@ public class MainMenuActivity extends AppCompatActivity {
         Intent intent = new Intent(this, TextDisplayActivity.class);
         intent.putExtra("file", R.raw.credits);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == 1) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                TextView textView = (TextView)findViewById(R.id.textView4);
+            }
+        }
     }
 }

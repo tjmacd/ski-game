@@ -97,7 +97,7 @@ public class LeaderboardActivity extends AppCompatActivity {
 
         thread.start();
     }
-        
+
     public void returnToMain(View view){
         finish();
     }

@@ -1,6 +1,7 @@
 package com.example.thaddeus.csci4100proj;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.PointF;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -155,6 +156,9 @@ public class PlayGameActivity extends AppCompatActivity
                 }
             }
         } else {
+            Intent intent = this.getIntent();
+            intent.putExtra("SOMETHING", "EXTRAS");
+            this.setResult(RESULT_OK, intent);
             finish();
         }
         return true;
