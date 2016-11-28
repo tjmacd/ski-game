@@ -16,5 +16,5 @@
 	- MVC
 - High scores
 - Instructions **(done)**
-- music and sound
+- music and sound **(done)**
 - layout theme
