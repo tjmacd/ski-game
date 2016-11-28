@@ -14,7 +14,7 @@
 		- variety
 	- More obstacles or adjust size
 	- MVC
-- High scores
+- High scores **(done)**
 - Instructions **(done)**
 - music and sound **(done)**
 - layout theme
