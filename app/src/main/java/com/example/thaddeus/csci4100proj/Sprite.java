@@ -32,7 +32,7 @@ public class Sprite {
 
         float distance = distanceTo(location2);
 
-        return (distance < (width * 0.75));
+        return (distance < (width * 0.5));
     }
 
     public float getWidth() {

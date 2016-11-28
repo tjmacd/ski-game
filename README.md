@@ -7,7 +7,9 @@
 	- Jumping
 		- Jump cooldown
 	- scoring
+		- coins
 	- lives
+		- display
 	- Actual sprites
 	- More obstacles or adjust size
 - High scores
