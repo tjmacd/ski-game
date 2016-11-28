@@ -78,6 +78,7 @@ public class PlayGameActivity extends AppCompatActivity
                 model.decrLives();
                 if(model.getLives() == 0){
                     model.setGameOver(true);
+                    view.setGameOver(true);
                 }
                 view.setLives(model.getLives());
                 Log.d("Lives", ""+model.getLives());

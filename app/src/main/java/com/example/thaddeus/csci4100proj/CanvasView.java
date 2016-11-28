@@ -32,8 +32,9 @@ public class CanvasView extends View {
     private PlayerState playerState = PlayerState.STRAIGHT;
     private int lives = 0;
     private int score = 0;
-
+    private boolean gameOver = false;
     private Paint smallFont;
+    private Paint largeFont;
 
     public CanvasView(Context ctx){
         super(ctx);
@@ -54,6 +55,10 @@ public class CanvasView extends View {
         smallFont = new Paint();
         smallFont.setTextSize(42);
         smallFont.setColor(0xff000000);
+
+        largeFont = new Paint();
+        largeFont.setTextSize(72);
+        largeFont.setColor(0xff999999);
     }
 
     private PointF convertToScreenCoords(PointF point){
@@ -121,6 +126,10 @@ public class CanvasView extends View {
         this.score = score;
     }
 
+    public void setGameOver(boolean gameOver){
+        this.gameOver = gameOver;
+    }
+
     protected void drawObstacles(Canvas canvas){
         for(RectF obstacle : obstaclePositions){
             canvas.drawBitmap(obstacleSprite, null, obstacle, null);
@@ -150,6 +159,11 @@ public class CanvasView extends View {
 
         canvas.drawText(strLives, 10, TEXT_Y_OFFSET, smallFont);
         canvas.drawText(strScore, getWidth()/2, TEXT_Y_OFFSET, smallFont);
+
+        if(gameOver){
+            String gameOver = resources.getString(R.string.gameover);
+            canvas.drawText(gameOver, getWidth()/3, getHeight()/2, largeFont);
+        }
     }
 
 
