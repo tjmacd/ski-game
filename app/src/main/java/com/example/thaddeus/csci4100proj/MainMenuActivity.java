@@ -44,7 +44,7 @@ public class MainMenuActivity extends AppCompatActivity {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
                 TextView textView = (TextView)findViewById(R.id.textView4);
-                textView.setText(data.getStringExtra("result"));
+                textView.setText("Your Score: \n" + data.getStringExtra("result"));
             }
         }
     }
