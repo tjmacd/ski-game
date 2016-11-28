@@ -18,6 +18,12 @@ public class MainMenuActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void highscores(View view){
+        Intent intent = new Intent(this, LeaderboardActivity.class);
+        intent.putExtra("file", R.raw.highscores);
+        startActivity(intent);
+    }
+
     public void showInstructions(View view){
         Intent intent = new Intent(this, TextDisplayActivity.class);
         intent.putExtra("file", R.raw.instructions);
