@@ -7,12 +7,14 @@ import android.util.Log;
 import android.util.Xml;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -25,6 +27,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +45,110 @@ public class LeaderboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaderboard);
 
+        final TextView textBox = (TextView)findViewById(R.id.textView2);
+        textBox.setText("Players:\n");
+        final TextView textBox2 = (TextView)findViewById(R.id.textView3);
+        textBox2.setText("Score:\n");
+
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+
+                    try {
+
+                        URL url = new URL("http://toastermonkey.co.nf/highscores.xml");
+                        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+                        DocumentBuilder db = dbf.newDocumentBuilder();
+                        Document doc = db.parse(new InputSource(url.openStream()));
+                        doc.getDocumentElement().normalize();
+
+                        NodeList nodeList = doc.getElementsByTagName("player");
+
+                        for (int i = 0; i < nodeList.getLength(); i++) {
+
+                            Node node = nodeList.item(i);
+
+                            Element fstElmnt = (Element) node;
+                            NodeList nameList = fstElmnt.getElementsByTagName("name");
+                            Element nameElement = (Element) nameList.item(0);
+                            nameList = nameElement.getChildNodes();
+                            textBox.append(((Node) nameList.item(0)).getNodeValue() + "\n");
+
+                            NodeList scoreList = fstElmnt.getElementsByTagName("score");
+                            Element scoreElement = (Element) scoreList.item(0);
+                            scoreList = scoreElement.getChildNodes();
+                            textBox2.append(((Node) scoreList.item(0)).getNodeValue() + "\n");
+
+                        }
+                    } catch (Exception e) {
+                        System.out.println("XML Pasing Excpetion = " + e);
+                    }
+
+
+
+                    //Your code goes here
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        thread.start();
+    }
+        /*
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.HORIZONTAL);
+
+        TextView name[];
+        TextView score[];
+
+        try {
+
+            URL url = new URL("http://toastermonkey.co.nf/highscores.xml");
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(new InputSource(url.openStream()));
+            doc.getDocumentElement().normalize();
+
+            NodeList nodeList = doc.getElementsByTagName("player");
+
+            name = new TextView[nodeList.getLength()];
+            score = new TextView[nodeList.getLength()];
+
+            for (int i = 0; i < nodeList.getLength(); i++) {
+
+                Node node = nodeList.item(i);
+
+                name[i] = new TextView(this);
+                score[i] = new TextView(this);
+
+                Element fstElmnt = (Element) node;
+                NodeList nameList = fstElmnt.getElementsByTagName("name");
+                Element nameElement = (Element) nameList.item(0);
+                nameList = nameElement.getChildNodes();
+                name[i].setText(((Node) nameList.item(0)).getNodeValue());
+
+                NodeList scoreList = fstElmnt.getElementsByTagName("score");
+                Element scoreElement = (Element) scoreList.item(0);
+                scoreList = scoreElement.getChildNodes();
+                score[i].setText(((Node) scoreList.item(0)).getNodeValue());
+
+                layout.addView(name[i]);
+                layout.addView(score[i]);
+            }
+        } catch (Exception e) {
+            System.out.println("XML Pasing Excpetion = " + e);
+        }
+
+        setContentView(layout);
+    }
+
+
+
+
+        /*
         List<Entry> data = null;
         EditText textBox = (EditText)findViewById(R.id.textView2);
 
@@ -143,7 +250,7 @@ public class LeaderboardActivity extends AppCompatActivity {
         }
         return result;
     }
-
+    */
     public void returnToMain(View view){
         finish();
     }
