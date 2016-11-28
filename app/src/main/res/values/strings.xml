@@ -7,4 +7,6 @@
     <string name="score">Score: %d</string>
     <string name="gameover">Game Over</string>
     <string name="prompt_tap">Tap to continue</string>
+    <string name="done">Done</string>
+    <string name="credits">Credits</string>
 </resources>

@@ -5,8 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import static com.example.thaddeus.csci4100proj.R.styleable.View;
-
 public class MainMenuActivity extends AppCompatActivity {
 
     @Override
@@ -21,6 +19,14 @@ public class MainMenuActivity extends AppCompatActivity {
     }
 
     public void showInstructions(View view){
+        Intent intent = new Intent(this, TextDisplayActivity.class);
+        intent.putExtra("file", R.raw.instructions);
+        startActivity(intent);
+    }
 
+    public void showCredits(View view){
+        Intent intent = new Intent(this, TextDisplayActivity.class);
+        intent.putExtra("file", R.raw.credits);
+        startActivity(intent);
     }
 }

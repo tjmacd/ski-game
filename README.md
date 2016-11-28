@@ -3,7 +3,7 @@
 ## TODO:
 - Gameplay:
 	- collision **(done)**
-		- add "tap to continue"
+		- add "tap to continue" **(done)**
 	- Jumping **(done)**
 		- Jump cooldown **(done)**
 	- scoring **(done)**
@@ -15,6 +15,6 @@
 	- More obstacles or adjust size
 	- MVC
 - High scores
-- Instructions
+- Instructions **(done)**
 - music and sound
 - layout theme

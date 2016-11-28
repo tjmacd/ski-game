@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.thaddeus.csci4100proj.MainMenu">
+    tools:context="com.example.thaddeus.csci4100proj.MainMenuActivity">
 
     <Button
         android:layout_width="match_parent"
@@ -32,5 +32,15 @@
         android:text="@string/instructions"
         android:id="@+id/button3"
         android:layout_below="@+id/button2"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="showInstructions"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/credits"
+        android:id="@+id/button5"
+        android:layout_below="@+id/button3"
+        android:layout_centerHorizontal="true"
+        android:onClick="showCredits"/>
 </RelativeLayout>
