@@ -3,4 +3,6 @@
     <string name="play_game">Play Game</string>
     <string name="high_scores">High Scores</string>
     <string name="instructions">Instructions</string>
+    <string name="lives">Lives: %d</string>
+    <string name="score">Score: %d</string>
 </resources>

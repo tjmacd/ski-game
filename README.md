@@ -4,14 +4,16 @@
 - Gameplay:
 	- collision **(done)**
 		- add "tap to continue"
-	- Jumping
-		- Jump cooldown
-	- scoring
+	- Jumping **(done)**
+		- Jump cooldown **(done)**
+	- scoring **(done)**
 		- coins
-	- lives
-		- display
-	- Actual sprites
+	- lives **(done)**
+		- display **(done)**
+	- Actual sprites **(done)**
+		- variety
 	- More obstacles or adjust size
+	- MVC
 - High scores
 - Instructions
 - music and sound

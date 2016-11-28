@@ -62,12 +62,14 @@ public class PlayGameActivity extends AppCompatActivity
         view.setPlayerDimensions(model.getSpriteWidth(), model.getSpriteHeight());
         view.setObstacleDimensions(model.getSpriteWidth(), model.getSpriteHeight());
         view.setPlayerPosition(model.getPosition());
+
+
         view.clearObstacles();
         for(PointF pos : model.getObstaclePositions()){
             view.addObstacle(pos);
         }
 
-        view.redraw();
+
         if(jumpTime == 0) {
             view.setPlayerState(CanvasView.PlayerState.STRAIGHT);
             if (model.checkCollision()) {
@@ -77,14 +79,17 @@ public class PlayGameActivity extends AppCompatActivity
                 if(model.getLives() == 0){
                     model.setGameOver(true);
                 }
+                view.setLives(model.getLives());
                 Log.d("Lives", ""+model.getLives());
             }
         } else {
             if(model.checkCollision()) {
                 model.incrScore(10);
+                view.setScore(model.getScore());
             }
             jumpTime--;
         }
+        view.redraw();
         model.moveObstacles();
     }
 

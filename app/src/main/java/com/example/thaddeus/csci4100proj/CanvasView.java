@@ -1,6 +1,7 @@
 package com.example.thaddeus.csci4100proj;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -18,6 +19,7 @@ public class CanvasView extends View {
     public enum PlayerState {STRAIGHT, JUMP}
     public static final int WORLD_WIDTH = 800;
     public static final int WORLD_HEIGHT = 1280;
+    public static final int TEXT_Y_OFFSET = 50;
     private RectF playerPos;
     private ArrayList<RectF> obstaclePositions;
     private Bitmap playerSprite;
@@ -28,6 +30,10 @@ public class CanvasView extends View {
     private int obstacleWidth;
     private int obstacleHeight;
     private PlayerState playerState = PlayerState.STRAIGHT;
+    private int lives = 0;
+    private int score = 0;
+
+    private Paint smallFont;
 
     public CanvasView(Context ctx){
         super(ctx);
@@ -44,6 +50,10 @@ public class CanvasView extends View {
         playerJumpSprite = BitmapFactory.decodeResource(getResources(), R.drawable.jump);
         obstacleSprite = BitmapFactory.decodeResource(getResources(), R.drawable.tree2);
         obstaclePositions = new ArrayList<>();
+
+        smallFont = new Paint();
+        smallFont.setTextSize(42);
+        smallFont.setColor(0xff000000);
     }
 
     private PointF convertToScreenCoords(PointF point){
@@ -103,6 +113,14 @@ public class CanvasView extends View {
         invalidate();
     }
 
+    public void setLives(int lives){
+        this.lives = lives;
+    }
+
+    public void setScore(int score){
+        this.score = score;
+    }
+
     protected void drawObstacles(Canvas canvas){
         for(RectF obstacle : obstaclePositions){
             canvas.drawBitmap(obstacleSprite, null, obstacle, null);
@@ -125,7 +143,13 @@ public class CanvasView extends View {
                 break;
         }
 
+        // Draw text
+        Resources resources = getContext().getResources();
+        String strLives = String.format(resources.getString(R.string.lives), lives);
+        String strScore = String.format(resources.getString(R.string.score), score);
 
+        canvas.drawText(strLives, 10, TEXT_Y_OFFSET, smallFont);
+        canvas.drawText(strScore, getWidth()/2, TEXT_Y_OFFSET, smallFont);
     }
 
 
