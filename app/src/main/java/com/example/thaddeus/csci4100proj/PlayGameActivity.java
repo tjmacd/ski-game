@@ -7,6 +7,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -157,7 +158,7 @@ public class PlayGameActivity extends AppCompatActivity
             }
         } else {
             Intent intent = this.getIntent();
-            intent.putExtra("SOMETHING", "EXTRAS");
+            intent.putExtra("result",Integer.toString(model.getScore()));
             this.setResult(RESULT_OK, intent);
             finish();
         }
