@@ -1,43 +1,18 @@
 package com.example.thaddeus.csci4100proj;
 
-import android.content.res.AssetManager;
-import android.content.res.XmlResourceParser;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.util.Xml;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
-import static java.lang.Thread.sleep;
 
 
 public class LeaderboardActivity extends AppCompatActivity {
@@ -53,10 +28,8 @@ public class LeaderboardActivity extends AppCompatActivity {
     }
 
     public void showScores(NodeList nodeList){
-        TextView textBox = (TextView) findViewById(R.id.textView2);
-        textBox.setText("Players:\n");
-        TextView textBox2 = (TextView) findViewById(R.id.textView3);
-        textBox2.setText("Score:\n");
+        TextView textBox = (TextView) findViewById(R.id.txtPlayers);
+        TextView textBox2 = (TextView) findViewById(R.id.txtScores);
         for (int i = 0; i < nodeList.getLength(); i++) {
 
             Node node = nodeList.item(i);

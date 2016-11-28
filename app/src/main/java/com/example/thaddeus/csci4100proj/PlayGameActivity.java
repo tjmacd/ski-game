@@ -7,7 +7,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -133,7 +132,6 @@ public class PlayGameActivity extends AppCompatActivity
             }
         }
         if(jumpCooldown != 0){
-            Log.d("Jump Cooldown", ""+jumpCooldown);
             jumpCooldown--;
         }
     }
@@ -145,7 +143,6 @@ public class PlayGameActivity extends AppCompatActivity
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        Log.d(appName, "TOUCH!");
         if(!model.isGameOver()) {
             if (crash == 0) {
                 view.setPromptTap(false);

@@ -10,4 +10,6 @@
     <string name="done">Done</string>
     <string name="credits">Credits</string>
     <string name="best_score">Best score: %d</string>
+    <string name="player">Player:\n</string>
+    <string name="points">Score:\n</string>
 </resources>

@@ -1,8 +1,6 @@
 package com.example.thaddeus.csci4100proj;
 
 import android.content.Context;
-import android.graphics.Paint;
-import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;

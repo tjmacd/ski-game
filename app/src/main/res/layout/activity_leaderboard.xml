@@ -13,19 +13,19 @@
         android:onClick="returnToMain"/>
 
     <TextView
-        android:text="TextView"
+        android:text="@string/player"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView2" />
+        android:id="@+id/txtPlayers" />
 
     <TextView
-        android:text="TextView"
+        android:text="@string/points"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="130dp"
-        android:id="@+id/textView3" />
+        android:id="@+id/txtScores" />
 
 
 </RelativeLayout>
