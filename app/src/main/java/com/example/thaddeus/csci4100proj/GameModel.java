@@ -88,7 +88,7 @@ public class GameModel {
         screenSwap = (screenSwap == 1) ? 0 : 1;
     }
 
-    public void moveObstacles(){
+    public void moveScene(){
         for(Sprite[] screen : obstacles) {
             for (Sprite obstacle : screen) {
                 if(obstacle != null) {

@@ -33,6 +33,7 @@ public class CanvasView extends View {
     private int lives = 0;
     private int score = 0;
     private boolean gameOver = false;
+    private boolean promptTap = false;
     private Paint smallFont;
     private Paint largeFont;
 
@@ -130,7 +131,11 @@ public class CanvasView extends View {
         this.gameOver = gameOver;
     }
 
-    protected void drawObstacles(Canvas canvas){
+    public void setPromptTap(boolean displayPrompt){
+        this.promptTap = displayPrompt;
+    }
+
+    private void drawObstacles(Canvas canvas){
         for(RectF obstacle : obstaclePositions){
             canvas.drawBitmap(obstacleSprite, null, obstacle, null);
         }
@@ -163,6 +168,10 @@ public class CanvasView extends View {
         if(gameOver){
             String gameOver = resources.getString(R.string.gameover);
             canvas.drawText(gameOver, getWidth()/3, getHeight()/2, largeFont);
+        }
+        if(promptTap){
+            String prompt = resources.getString(R.string.prompt_tap);
+            canvas.drawText(prompt, getWidth()/4, getHeight()/2, largeFont);
         }
     }
 

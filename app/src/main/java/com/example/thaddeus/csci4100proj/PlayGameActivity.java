@@ -58,6 +58,20 @@ public class PlayGameActivity extends AppCompatActivity
         }
     }
 
+    @Override
+    public void onPause(){
+        super.onPause();
+        view.setOnTouchListener(null);
+        paused = true;
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        view.setOnTouchListener(this);
+        paused = false;
+    }
+
     private void update(){
         view.setPlayerDimensions(model.getSpriteWidth(), model.getSpriteHeight());
         view.setObstacleDimensions(model.getSpriteWidth(), model.getSpriteHeight());
@@ -81,7 +95,6 @@ public class PlayGameActivity extends AppCompatActivity
                     view.setGameOver(true);
                 }
                 view.setLives(model.getLives());
-                Log.d("Lives", ""+model.getLives());
             }
         } else {
             if(model.checkCollision()) {
@@ -91,7 +104,7 @@ public class PlayGameActivity extends AppCompatActivity
             jumpTime--;
         }
         view.redraw();
-        model.moveObstacles();
+        model.moveScene();
     }
 
     @Override
@@ -106,6 +119,10 @@ public class PlayGameActivity extends AppCompatActivity
             update();
         } else if (crash != 0){
             crash--;
+            if(crash == 0 && !model.isGameOver()){
+                view.setPromptTap(true);
+                view.redraw();
+            }
         }
         if(jumpCooldown != 0){
             Log.d("Jump Cooldown", ""+jumpCooldown);
@@ -122,6 +139,7 @@ public class PlayGameActivity extends AppCompatActivity
     public boolean onTouch(View v, MotionEvent event) {
         Log.d(appName, "TOUCH!");
         if(crash == 0) {
+            view.setPromptTap(false);
             paused = false;
             if (jumpCooldown == 0) {
                 jumpTime = JUMP_TIME;
