@@ -113,7 +113,7 @@ public class LeaderboardActivity extends AppCompatActivity {
             showScores(result);
         }
     }
-        
+
     public void returnToMain(View view){
         finish();
     }

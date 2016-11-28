@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CSCI4100proj</string>
+    <string name="app_name">Downhill Chaos</string>
     <string name="play_game">Play Game</string>
     <string name="high_scores">High Scores</string>
     <string name="instructions">Instructions</string>
@@ -9,4 +9,5 @@
     <string name="prompt_tap">Tap to continue</string>
     <string name="done">Done</string>
     <string name="credits">Credits</string>
+    <string name="best_score">Best score: %d</string>
 </resources>

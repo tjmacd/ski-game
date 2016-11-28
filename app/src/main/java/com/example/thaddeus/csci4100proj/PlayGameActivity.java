@@ -158,7 +158,7 @@ public class PlayGameActivity extends AppCompatActivity
             }
         } else {
             Intent intent = this.getIntent();
-            intent.putExtra("result",Integer.toString(model.getScore()));
+            intent.putExtra("result",model.getScore());
             this.setResult(RESULT_OK, intent);
             finish();
         }
