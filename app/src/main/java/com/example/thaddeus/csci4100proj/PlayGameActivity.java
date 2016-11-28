@@ -16,8 +16,8 @@ import android.view.View;
 public class PlayGameActivity extends AppCompatActivity
         implements SensorEventListener, View.OnTouchListener {
     public static final float TILT_THRESHOLD = 1.5f;
-    public static final int JUMP_TIME = 30;
-    public static final int CRASH_TIME = 50;
+    public static final int JUMP_TIME = 15;
+    public static final int CRASH_TIME = 20;
     public static final int JUMP_COOLDOWN_TIME = 50;
     public String appName;
     private GameModel model;
@@ -26,6 +26,7 @@ public class PlayGameActivity extends AppCompatActivity
     private int jumpTime = 0;
     private int jumpCooldown = 0;
     private int crash = 0;
+    private AudioHandler audioHandler;
 
 
     @Override
@@ -47,6 +48,8 @@ public class PlayGameActivity extends AppCompatActivity
 
         update();
 
+        audioHandler = new AudioHandler(this);
+
         SensorManager manager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         if(manager.getSensorList(Sensor.TYPE_ACCELEROMETER).size() == 0){
             Log.d(appName, "No accelerometer");
@@ -62,6 +65,7 @@ public class PlayGameActivity extends AppCompatActivity
     public void onPause(){
         super.onPause();
         view.setOnTouchListener(null);
+        audioHandler.pause(isFinishing());
         paused = true;
     }
 
@@ -69,6 +73,7 @@ public class PlayGameActivity extends AppCompatActivity
     public void onResume(){
         super.onResume();
         view.setOnTouchListener(this);
+        audioHandler.resume();
         paused = false;
     }
 
@@ -95,6 +100,7 @@ public class PlayGameActivity extends AppCompatActivity
                     view.setGameOver(true);
                 }
                 view.setLives(model.getLives());
+                audioHandler.playCrashSound();
             }
         } else {
             if(model.checkCollision()) {
@@ -138,14 +144,18 @@ public class PlayGameActivity extends AppCompatActivity
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         Log.d(appName, "TOUCH!");
-        if(crash == 0) {
-            view.setPromptTap(false);
-            paused = false;
-            if (jumpCooldown == 0) {
-                jumpTime = JUMP_TIME;
-                jumpCooldown = JUMP_COOLDOWN_TIME;
-                view.setPlayerState(CanvasView.PlayerState.JUMP);
+        if(!model.isGameOver()) {
+            if (crash == 0) {
+                view.setPromptTap(false);
+                paused = false;
+                if (jumpCooldown == 0) {
+                    jumpTime = JUMP_TIME;
+                    jumpCooldown = JUMP_COOLDOWN_TIME;
+                    view.setPlayerState(CanvasView.PlayerState.JUMP);
+                }
             }
+        } else {
+            finish();
         }
         return true;
     }

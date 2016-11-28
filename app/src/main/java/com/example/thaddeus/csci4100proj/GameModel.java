@@ -4,7 +4,7 @@ import android.graphics.PointF;
 import android.util.Log;
 
 public class GameModel {
-    public static final float SPEED = 10;
+    public static final float SPEED = 20;
     public static final float DRIFT_SPEED = 10;
     public static final float PLAYER_Y = 200;
     public static final int STARTING_LIVES = 5;
