@@ -7,7 +7,7 @@ import android.view.View;
 
 import static com.example.thaddeus.csci4100proj.R.styleable.View;
 
-public class MainMenu extends AppCompatActivity {
+public class MainMenuActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,5 +18,9 @@ public class MainMenu extends AppCompatActivity {
     public void startGame(View view) {
         Intent intent = new Intent(this, PlayGameActivity.class);
         startActivity(intent);
+    }
+
+    public void showInstructions(View view){
+
     }
 }
