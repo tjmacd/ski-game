@@ -40,7 +40,6 @@ public class MainMenuActivity extends AppCompatActivity {
 
     public void highscores(View view){
         Intent intent = new Intent(this, LeaderboardActivity.class);
-        intent.putExtra("file", R.raw.highscores);
         startActivity(intent);
     }
 
