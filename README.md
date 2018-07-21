@@ -5,5 +5,5 @@ A ski simulator for Android which takes advantage of the accelerometer.
 Avoid obstacles by tilting left and right. Tap to jump.
 
 ## Screenshots
-![Menu](screenshots/menu.png)
-![Gameplay](screenshots/gameplay.png)
+<img src="screenshots/menu.png" width="350">
+<img src="screenshots/gameplay.png" width="350">
